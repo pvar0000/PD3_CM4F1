@@ -4,7 +4,6 @@ import numpy as np
 def inv_gauss_jordan(A):
     n = len(A)
 
-    # Comprobar si la matriz es cuadrada
     if A.shape[0] != A.shape[1]:
         return None
 
@@ -41,12 +40,10 @@ print(
 b = np.array([[1], [1]])
 x = np.linalg.solve(A, b)
 
-print("eigenvectors of A are ", np.linalg.eig(A)[1])
-
 eigenvalues, eigenvectors = np.linalg.eig(A @ A.T)
 dominant_eigenvector = eigenvectors[:, np.argmax(np.abs(eigenvalues))]
 
-epsilon = 1.4913e-16
+epsilon = 1.4914e-16
 
 delta_be = epsilon * dominant_eigenvector
 
@@ -59,7 +56,9 @@ relative_error_x = np.linalg.norm(delta_x, np.inf) / np.linalg.norm(x, np.inf)
 
 print(relative_error_x / relative_error_b)
 
-delta_A = np.random.rand(2, 2) * 1e-14
+epsilon = 1.621123e-15
+delta_A = epsilon * np.outer(dominant_eigenvector, dominant_eigenvector)
+
 
 relative_error_A = np.linalg.norm(delta_A, np.inf) / np.linalg.norm(A, np.inf)
 x_perturbed = np.linalg.solve(A + delta_A, b)
