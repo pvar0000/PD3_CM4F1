@@ -45,12 +45,10 @@ dominant_eigenvector = eigenvectors[:, np.argmax(np.abs(eigenvalues))]
 
 epsilon = 1.4914e-16
 
-delta_be = epsilon * dominant_eigenvector
+delta_b = epsilon * dominant_eigenvector
 
-delta_b = np.random.rand(2, 1) * 1e-14
-
-relative_error_b = np.linalg.norm(delta_be, np.inf) / np.linalg.norm(b, np.inf)
-x_perturbed = np.linalg.solve(A, b + delta_be)
+relative_error_b = np.linalg.norm(delta_b, np.inf) / np.linalg.norm(b, np.inf)
+x_perturbed = np.linalg.solve(A, b + delta_b)
 delta_x = x_perturbed - x
 relative_error_x = np.linalg.norm(delta_x, np.inf) / np.linalg.norm(x, np.inf)
 
